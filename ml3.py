@@ -65,7 +65,6 @@ def translit(text: str) -> str:
 def to_ascii_bytes(text: str) -> List[int]:
     """Конвертирует строку в список байт ASCII (с транслитом)."""
     return list(translit(text).encode("ascii", errors="replace"))
-    
 def hsv_to_rgb127(h: float, s: float = 1.0, v: float = 1.0) -> Tuple[int, int, int]:
     """Конвертирует HSV (0.0-1.0) в RGB (0-127) для MIDI."""
     import colorsys
