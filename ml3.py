@@ -35,38 +35,14 @@ IGNORED_CCS = {1}  # Mod wheel
 
 # Иконки для экрана (используются в левом и правом слотах)
 ICON_IDS = {
-    "сердце": 0x01, "стрелка": 0x02, "круг": 0x03,
-    "нота": 0x04, "галочка": 0x05, "энкодер": 0x06,
+    "heart": 0x01, "arrow": 0x02, "rec": 0x03,
+    "note": 0x04, "check": 0x05, "knob": 0x06,
 }
 
 # Ноты: C, C#, D, D#, E, F, F#, G, G#, A, A#, B
 NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 
-# Транслитерация для OLED-экрана (экран не понимает кириллицу)
-CYRILLIC_TRANSLIT = {
-    "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "yo",
-    "ж": "zh", "з": "z", "и": "i", "й": "y", "к": "k", "л": "l", "м": "m",
-    "н": "n", "о": "o", "п": "p", "р": "r", "с": "s", "т": "t", "у": "u",
-    "ф": "f", "х": "h", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "sch",
-    "ъ": "", "ы": "y", "ь": "", "э": "e", "ю": "yu", "я": "ya",
-}
-
 # ============================== УТИЛИТЫ =====================================
-def translit(text: str) -> str:
-    """Транслитерирует кириллицу в латиницу для отправки на экран."""
-    result = []
-    for ch in text:
-        lower = ch.lower()
-        if lower in CYRILLIC_TRANSLIT:
-            t = CYRILLIC_TRANSLIT[lower]
-            result.append(t.capitalize() if ch.isupper() and t else t)
-        else:
-            result.append(ch)
-    return "".join(result)
-
-def to_ascii_bytes(text: str) -> List[int]:
-    """Конвертирует строку в список байт ASCII (с транслитом)."""
-    return list(translit(text).encode("ascii", errors="replace"))
 
 def hsv_to_rgb127(h: float, s: float = 1.0, v: float = 1.0) -> Tuple[int, int, int]:
     """Конвертирует HSV (0.0-1.0) в RGB (0-127) для MIDI."""
