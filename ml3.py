@@ -41,9 +41,31 @@ ICON_IDS = {
 
 # Ноты: C, C#, D, D#, E, F, F#, G, G#, A, A#, B
 NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+CYRILLIC_TRANSLIT = {
+    "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "yo",
+    "ж": "zh", "з": "z", "и": "i", "й": "y", "к": "k", "л": "l", "м": "m",
+    "н": "n", "о": "o", "п": "p", "р": "r", "с": "s", "т": "t", "у": "u",
+    "ф": "f", "х": "h", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "sch",
+    "ъ": "", "ы": "y", "ь": "", "э": "e", "ю": "yu", "я": "ya",
+}
 
 # ============================== УТИЛИТЫ =====================================
+def translit(text: str) -> str:
+    """Транслитерирует кириллицу в латиницу для отправки на экран."""
+    result = []
+    for ch in text:
+        lower = ch.lower()
+        if lower in CYRILLIC_TRANSLIT:
+            t = CYRILLIC_TRANSLIT[lower]
+            result.append(t.capitalize() if ch.isupper() and t else t)
+        else:
+            result.append(ch)
+    return "".join(result)
 
+def to_ascii_bytes(text: str) -> List[int]:
+    """Конвертирует строку в список байт ASCII (с транслитом)."""
+    return list(translit(text).encode("ascii", errors="replace"))
+    
 def hsv_to_rgb127(h: float, s: float = 1.0, v: float = 1.0) -> Tuple[int, int, int]:
     """Конвертирует HSV (0.0-1.0) в RGB (0-127) для MIDI."""
     import colorsys
