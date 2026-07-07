@@ -54,7 +54,7 @@ def breathe(m: Minilab3, button: str = "Oct-", color=(127, 0, 80), cycles: int =
 
 def typewriter_demo(m: Minilab3):
     print("⌨️  Печатная машинка...")
-    m.typewriter("Hello Linux MIDI", label="typing...")
+    m.typewriter("Hello MIDI", label="typing...")
     time.sleep(1)
 
 def scroll_demo(m: Minilab3):
